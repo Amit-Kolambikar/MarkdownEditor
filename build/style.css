@@ -362,6 +362,7 @@ html{
 	border:1em solid #666;
 	min-height: 100%;
 font-family: 'Droid Sans', sans-serif;
+overflow-y: hidden;
 }
 .textarea-input{
 	float:left;
@@ -371,8 +372,8 @@ font-family: 'Droid Sans', sans-serif;
 	resize:none;
 	overflow-y:scroll;
 	height: 800px;
-	height: 80vh;
-	font-size:1.4em;
+	height: 78vh;
+	font-size:1.2em;
 	font-family: 'Droid Sans Mono', monospace;
 }
 .textarea-input:focus{
@@ -406,12 +407,12 @@ display: inline-block;
 text-decoration: none !important
 }
 .mdview{
-	padding:2em;
+	padding:0 2em;
 	width:50%;
 	float:right;
-	font-size:1.4em;
+	font-size:1.2em;
 font-family: 'Droid Sans', sans-serif;
 	height: 800px;
-	height: 80vh;
+	height: 78vh;
 	overflow-y:scroll;
 }
