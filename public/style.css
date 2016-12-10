@@ -369,6 +369,7 @@ overflow-y: hidden;
 	width:50%;
 	padding:2em;
 	border:none;
+	color:orange;
 	resize:none;
 	overflow-y:scroll;
 	height: 800px;
