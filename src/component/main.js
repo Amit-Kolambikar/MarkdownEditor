@@ -1,45 +1,55 @@
 import React from 'react';
 import MarkdownView from '../component/markdownView'
 var dummytext = require('../helpers/dummyMarkdownContent.md')
-var marked = require('marked');
 var Axios = require('axios');
 export default class main extends React.Component {
 
   constructor(props) {
     super(props);
 
-    marked.setOptions({
-      renderer: new marked.Renderer(),
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false
-    });
-    Axios.get('http://heckyesmarkdown.com/go/dummytext.md')
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    const dummyMarkdownContent = dummytext;
     this.state = {
-      markedInput: dummytext
+      markedInput: ""
     }
   // add dummy content first  or upload existing markdown file
   }
-  initMarkedSettings() {
-    document.getElementById('content').innerHTML = marked('# Marked in browser\n\nRendered by **marked**.');
+  fetchDummyData() {
+    Axios.get('https://raw.githubusercontent.com/Amit-Kolambikar/MarkdownEditor/master/src/helpers/dummyMarkdownContent.md')
+      .then(function(response) {
+        console.log(response);
+        this.setState({
+          markedInput: response.data
+        });
+      }.bind(this))
+      .catch(function(error) {
+        console.log(error);
+      });
   }
   componentWillMount() {
-    this.initMarkedSettings();
+    this.fetchDummyData();
   }
+  componentDidUpdate(prevProps, prevState) {
+    var textFile = null,
+      makeTextFile = function(text) {
+        var data = new Blob([text], {
+          type: 'text/markdown'
+        });
+        if (textFile !== null) {
+          window.URL.revokeObjectURL(textFile);
+        }
+        textFile = window.URL.createObjectURL(data);
+        // returns a URL you can use as a href
+        return textFile;
+      }.bind(this);
+    let link = document.getElementById('main-button');
+    link.addEventListener('click', function(e) {
+      link.href = makeTextFile(this.state.markedInput)
+    }.bind(this), false);
+
+  }
+
   render() {
     return (
-      <div>
+      <div className="parent">
         <textarea
                   className="textarea-input"
                   onChange={ (event) => {
@@ -48,7 +58,7 @@ export default class main extends React.Component {
                                })
                              } }
                   value={ this.state.markedInput } />
-        <MarkdownView/>
+        <MarkdownView userInput={ this.state.markedInput } />
       </div>
       );
   }
