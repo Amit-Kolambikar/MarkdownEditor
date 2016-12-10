@@ -361,8 +361,8 @@ progress {
 html{
 	border:1em solid #666;
 	min-height: 100%;
-font-family: 'Droid Sans', sans-serif;
-overflow-y: hidden;
+	font-family: 'Droid Sans', sans-serif;
+	overflow-y: hidden;
 }
 .textarea-input{
 	float:left;
